@@ -1,23 +1,32 @@
 import logo from './logo.svg';
+import react, { useState, useEffect } from "react";
 import './App.css';
 
 function App() {
+
+const [stories, setStories] = useState([]);
+
+useState(()=>{
+
+});
+
+useEffect(()=>{
+  fetch("https://hn.algolia.com/api/v1/search?tags=front_page")
+  .then((res)=> res.json())
+  .then((data) => {
+    setStories(data.hits)
+  }) 
+  // The empty array means "to run me once and only once"
+},[]);
+console.log(stories)
+
+//
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>hello classmates! </h1>
     </div>
   );
 }
