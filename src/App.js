@@ -1,23 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
+import TabsForm from "./components/TabsForm"
 
 function App() {
+
+const [stories, setStories] = useState([]);
+
+
+
+useEffect(()=>{
+  fetch("https://hn.algolia.com/api/v1/search?tags=front_page")
+  .then((res)=> res.json())
+  .then((data) => {
+    setStories(data.hits)
+  })
+  // The empty array means "to run me once and only once"
+},[]);
+
+//
+
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     <h1>hello classmates! </h1>
+     < TabsForm data={stories}/>
     </div>
   );
 }

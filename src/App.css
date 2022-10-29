@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+
+select {
+  color: #5a5f6d;
+  background-color: #f6f5f0;
+  border-color: #cecdc8;
+}
+
+form {
+  background-color: #f6f5f0;
+  text-align: left;
+  margin-left: 10px;
+}
+label {
+  margin: 5px;
+}
+
+.searchCriteria {
+  width: 5vh;
+}
+
+.forCriteria {
+  width: 8vh;
+}
