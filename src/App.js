@@ -1,36 +1,44 @@
-import logo from './logo.svg';
-import react, { useState, useEffect } from "react";
+// import logo from './logo.svg';
+import react, { useState, useEffect } from 'react';
 import './App.css';
-import BodyCard from './components/BodyCard';
+import SearchBar from './SearchBar';
+import ListPage from './ListPage';
+
 
 function App() {
+  const [stories, setStories] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  useState(() => {});
 
-const [stories, setStories] = useState([]);
+  useEffect(() => {
+    fetch('https://hn.algolia.com/api/v1/search?tags=front_page')
+      .then((res) => res.json())
+      .then((data) => {
+        const newsStories = data.hits;
+        setStories(newsStories);
+        return newsStories;
+      })
+      .then((newsStories) => {
+        setSearchResults(newsStories);
+      });
 
-useState(()=>{
-
-});
-
-useEffect(()=>{
-  fetch("https://hn.algolia.com/api/v1/search?tags=front_page")
-  .then((res)=> res.json())
-  .then((data) => {
-    setStories(data.hits)
-  }) 
-  // The empty array means "to run me once and only once"
-},[]);
-console.log(stories)
-
-//
-
-
-
+    // The empty array means "to run me once and only once"
+  }, []);
+  // console.log(stories);
   return (
-    <div className="App">
-     <h1>Please send me new zoom link!!!! </h1>
-      <BodyCard data={stories}/>
-    </div>
+
+    <>
+      <SearchBar stories={stories} setSearchResults={setSearchResults} />
+      <ListPage searchResults={searchResults} />
+    </>
   );
+  //
+
+  // return (
+  //   <div className='App'>
+  //     <h1>hello classmates! </h1>
+  //   </div>
+  // );
 }
 
 export default App;
