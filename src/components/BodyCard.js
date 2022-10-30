@@ -13,7 +13,7 @@ return (
         {props.data.map((story)=>{
             return (
                 // Add styling here
-                <li className="story-itm">
+                <li className="story-itm" key={story.objectID}>
                     {story.title}
                 </li>
             )
