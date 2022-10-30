@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import react, { useState, useEffect } from "react";
 import './App.css';
+import BodyCard from './components/BodyCard';
 
 function App() {
 
@@ -26,7 +27,8 @@ console.log(stories)
 
   return (
     <div className="App">
-     <h1>hello classmates! </h1>
+     <h1>Please send me new zoom link!!!! </h1>
+      <BodyCard data={stories}/>
     </div>
   );
 }
