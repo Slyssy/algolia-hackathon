@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from './SearchBar';
 import ListPage from './ListPage';
 
+
 function App() {
   const [stories, setStories] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
@@ -25,6 +26,7 @@ function App() {
   }, []);
   // console.log(stories);
   return (
+
     <>
       <SearchBar stories={stories} setSearchResults={setSearchResults} />
       <ListPage searchResults={searchResults} />
