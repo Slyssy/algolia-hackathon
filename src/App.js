@@ -1,8 +1,9 @@
 // import logo from './logo.svg';
 import react, { useState, useEffect } from 'react';
 import './App.css';
-import SearchBar from './SearchBar';
-import ListPage from './ListPage';
+import SearchBar from './components/SearchBar';
+import ListPage from './components/ListPage';
+import BodyCard from './components/BodyCard';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
 
     <>
       <SearchBar stories={stories} setSearchResults={setSearchResults} />
+      <BodyCard data={stories}/>
       <ListPage searchResults={searchResults} />
     </>
   );
