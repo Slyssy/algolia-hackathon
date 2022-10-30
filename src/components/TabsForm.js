@@ -1,88 +1,173 @@
 import React, {useState, useEffect} from "react"
-
+ 
 
 export default function TabsForm(props) {  
     const [value, setValue] = useState([{
-        searchCriteria: "",
-        forCriteria: "",
-        byCriteria: ""
+        searchCriteria: "All",
+        forCriteria: "Popularity",
+        byCriteria: "AllTime"
       }])
+    const [tabResults, setTabResults] = useState([props.searchResults])
+
+
     const handleSearchCriteria = (event) => {
         setValue({
         searchCriteria: event.target.value
         })
+
+        // if (event.target.value ==="All")
         switch(event.target.value) {
             case "All":
-            //   console.log(props.data, typeof(props.data))
-               console.log("This is All of them")
-              props.character(props.data.filter(stories => stories._tags.includes("story"))
-                )
-            //     console.log(props.data)
+                // displays all stories
+              if (props.searchResults.length < tabResults.length || props.searchResults.length === 0) {
+                console.log("Search Results", props.searchResults, props.tabResults)
+                props.character(tabResults)
+              } else{
+              console.log("Search Results", props.searchResults, props.tabResults)
+              props.character(props.stories)}
               break;
             case "Stories":
-                console.log(props.data, typeof(props.data))
-                console.log("This is all the Stories")
-              props.character(props.data.filter(stories => stories._tags.includes("author_FrankyHollywood"))
+                // displays only the stories
+              if (props.searchResults.length === 0){
+              props.character(props.stories.filter(stories => stories._tags.includes("story"))
                 )
-            //     console.log(props.data)
-              // code block
+            } else{
+                setTabResults(props.searchResults)
+                console.log("Tab Results", tabResults)
+                props.character(props.searchResults.filter(stories => stories._tags.includes("story"))) 
+            }
               break;
             case "Comments":
-            //     console.log(props.data, typeof(props.data))
-            //   props.character(props.data.filter(stories => stories.tag.includes("author_FrankyHollywood"))
-            //     )
-            //     console.log(props.data)
-              // code block
+                //displays only the comments
+                if (props.searchResults.length === 0){
+                    props.character(props.stories.filter(stories => stories._tags.includes("comments"))
+                      )
+                  } else{
+                      console.log(props.searchResults)
+                      setTabResults(props.searchResults)
+                      console.log(tabResults)
+                      props.character(props.searchResults.filter(stories => stories._tags.includes("comments"))
+                      )
+                  } 
               break;
             default:
-              // code block
+              console.log("There is an error")
           }
     }
     const handleByCriteria = (event) => {
         setValue({
         byCriteria: event.target.value
         })
-        // switch(event.target.value) {
-        //     case "Popularity":
-        //       // code block
-        //       break;
-        //     case "Date":
-        //       // code block
-        //       break;
-        //     default:
-        //       // code block
-        //   }
-        // props.changeList(props.stories)
+        switch(event.target.value) {
+            case "Popularity":
+                console.log("Hello")
+                let sortedArrayByPop = props.searchResults.sort((a, b) => {
+                    const nameA = a.points; // ignore upper and lowercase
+                    const nameB = b.points; // ignore upper and lowercase
+                    if (nameA > nameB) {
+                      return -1;
+                    }
+                    if (nameA < nameB) {
+                      return 1;
+                    }
+                    return 0;
+                  });
+              console.log(sortedArrayByPop)    
+              props.character(sortedArrayByPop)
+              console.log(props.searchResults)
+              break;
+            case "Date":
+                console.log(props.searchResults)
+                let sortedArrayByDate = props.searchResults.sort((a, b) => {
+                    const nameA = a.created_at; // ignore upper and lowercase
+                    const nameB = b.created_at; // ignore upper and lowercase
+                    if (nameA > nameB) {
+                      return -1;
+                    }
+                    if (nameA < nameB) {
+                      return 1;
+                    }
+                    return 0;
+                  });
+                  console.log(sortedArrayByDate)    
+              props.character(sortedArrayByDate)
+              console.log(props.searchResults)
+              break;
+            default:
+              // code block
+          }
      }
     const handleForCriteria = (event) => {
         setValue({
         byCriteria: event.target.value
         })
-        // switch(event.target.value) {
-        //     case "Alltime":
-        //       // code block
-        //       break;
-        //     case "Last24h":
-        //       // code block
-        //       break;
-        //     case "PastWeek":
-        //       // code block
-        //       break;
-        //     case "PastMonth":
-        //       // code block
-        //       break;
-        //     case "PastYear":
-        //       // code block
-        //       break;
-        //     default:
-        //       // code block
-        //   }
-        // props.changeList(props.stories)
+        const calcDaysPast = function(date1, date2){
+           return date1 - date2 
+        }
+        let utz = (string) => new Date(string)
+        const today = new Date().getTime()
+        console.log(calcDaysPast(props.searchResults[1].created_at_i, today))
+        console.log(props.searchResults[1].created_at_i)
+        switch(event.target.value) {
+            case "Alltime":
+                if (props.searchResults.length < tabResults.length || props.searchResults.length === 0) {
+                    console.log("Search Results", props.searchResults, props.tabResults)
+                    props.character(tabResults)
+                  } else{
+                  console.log("Search Results", props.searchResults, props.tabResults)
+                  props.character(props.stories)}
+              break;
+            case "Last24h":
+                if (props.searchResults.length === 0){
+                    props.character(props.stories.filter(story => calcDaysPast(story.created_at_i, today) < 1 ))
+                  } else{
+                      setTabResults(props.searchResults)
+                      console.log("Tab Results", tabResults)
+                      props.character(props.searchResults.filter(story => calcDaysPast(story.created_at_i, today) < 1)) 
+                      console.log(props.searchResults)
+                  }
+              break;
+            case "PastWeek":
+                if (props.searchResults.length === 0){
+                    props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000))
+                  } else{
+                      setTabResults(props.searchResults)
+                      console.log("Tab Results", tabResults)
+                      props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000)) 
+                  }
+              break;
+            case "PastMonth":
+                if (props.searchResults.length === 0){
+                    props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 2592000000))
+                  } else{
+                      setTabResults(props.searchResults)
+                      console.log("Tab Results", tabResults)
+                      props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 2592000000)) 
+                  }
+              break;
+            case "PastYear":
+                if (props.searchResults.length === 0){
+                    props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 31536000000))
+                  } else{
+                      setTabResults(props.searchResults)
+                      console.log("Tab Results", tabResults)
+                      props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 31536000000)) 
+                  }
+              break;
+            default:
+              // code block
+          }
+        
      }
 
       useEffect(() => {
         console.log("UPDATED value", value)
-          }, [value])
+        // if(value.seachCriteria !== "All" && value.forCriteria !== "Stories" && byCriteria !== value.handleByCriteria !== "AllTime"){
+        //     console.log("cool")
+        // }
+          }, [value, props.searchResults])
+       
+          
 
     return (
         <form className= "Tabs">

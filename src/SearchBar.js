@@ -6,8 +6,9 @@ const SearchBar = (stories, setSearchResults) => {
   // console.log(stories.setSearchResults);
   const handleSubmit = (event) => event.preventDefault();
   const handleSearchChange = (event) => {
-    if (!event.target.value) return stories.setSearchResults(stories);
-
+    console.log("Event",event.target.value)
+    if (!event.target.value) {
+      stories.setSearchResults(stories)}
     const resultsArray = stories.stories.filter(
       (story) => {
         return story.title.includes(event.target.value);

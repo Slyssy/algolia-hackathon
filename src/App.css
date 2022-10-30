@@ -41,6 +41,9 @@ select {
   color: #5a5f6d;
   background-color: #f6f5f0;
   border-color: #cecdc8;
+  width: 18vh;
+  height: 20px;
+  font-size: 18px;
 }
 
 form {
@@ -53,9 +56,17 @@ label {
 }
 
 .searchCriteria {
-  width: 5vh;
+  width: fit-content;
+  block-size: fit-content;
 }
 
 .forCriteria {
-  width: 8vh;
+  width: fit-content;
+  block-size: fit-content;
 }
+
+.byCriteria {
+  block-size: fit-content;
+  width: fit-content;
+}
+
