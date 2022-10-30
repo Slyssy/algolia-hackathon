@@ -11,19 +11,32 @@ export default function TabsForm(props) {
         setValue({
         searchCriteria: event.target.value
         })
-        // switch(event.target.value) {
-        //     case "All":
-        //       // code block
-        //       break;
-        //     case "Stories":
-        //       // code block
-        //       break;
-        //     case "Comments":
-        //       // code block
-        //       break;
-        //     default:
-        //       // code block
-        //   }
+        switch(event.target.value) {
+            case "All":
+            //   console.log(props.data, typeof(props.data))
+               console.log("This is All of them")
+              props.character(props.data.filter(stories => stories._tags.includes("story"))
+                )
+            //     console.log(props.data)
+              break;
+            case "Stories":
+                console.log(props.data, typeof(props.data))
+                console.log("This is all the Stories")
+              props.character(props.data.filter(stories => stories._tags.includes("author_FrankyHollywood"))
+                )
+            //     console.log(props.data)
+              // code block
+              break;
+            case "Comments":
+            //     console.log(props.data, typeof(props.data))
+            //   props.character(props.data.filter(stories => stories.tag.includes("author_FrankyHollywood"))
+            //     )
+            //     console.log(props.data)
+              // code block
+              break;
+            default:
+              // code block
+          }
     }
     const handleByCriteria = (event) => {
         setValue({

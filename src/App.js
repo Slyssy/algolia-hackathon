@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import react, {useState, useEffect} from "react"
 import './App.css';
 import TabsForm from "./components/TabsForm"
 
@@ -16,7 +17,7 @@ useEffect(()=>{
   })
   // The empty array means "to run me once and only once"
 },[]);
-
+console.log(stories)
 //
 
 
@@ -24,7 +25,7 @@ useEffect(()=>{
   return (
     <div className="App">
      <h1>hello classmates! </h1>
-     < TabsForm data={stories}/>
+     < TabsForm data={stories} character = {setStories}/>
     </div>
   );
 }
