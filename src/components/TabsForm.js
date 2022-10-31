@@ -7,7 +7,7 @@ export default function TabsForm(props) {
         forCriteria: "Popularity",
         byCriteria: "AllTime"
       }])
-    const [tabResults, setTabResults] = useState([props.searchResults])
+    const [tabResults, setTabResults] = useState([])
 
 
     const handleSearchCriteria = (event) => {
@@ -19,31 +19,34 @@ export default function TabsForm(props) {
         switch(event.target.value) {
             case "All":
                 // displays all stories
-              if (props.searchResults.length < tabResults.length || props.searchResults.length === 0) {
-                console.log("Search Results", props.searchResults, props.tabResults)
+            //   if (props.searchResults.length !== tabResults.length && tabResults.length) {
+            // //     console.log("Search Results", props.searchResults, props.tabResults)
+              
+            //   console.log("Hello")
+            //   } else{
                 props.character(tabResults)
-              } else{
-              console.log("Search Results", props.searchResults, props.tabResults)
-              props.character(props.stories)}
+              
+            // //   props.character(props.stories)}
               break;
             case "Stories":
-                // displays only the stories
-              if (props.searchResults.length === 0){
-              props.character(props.stories.filter(stories => stories._tags.includes("story"))
-                )
-            } else{
+            //     // displays only the stories
+              if (tabResults.length !== 0 && tabResults.length === props.searchLength){
+                console.log("Hello")
+                props.character(tabResults.filter(stories => stories._tags.includes("story")))
+            
+             } else{
+                console.log("Goodbye")
                 setTabResults(props.searchResults)
-                console.log("Tab Results", tabResults)
                 props.character(props.searchResults.filter(stories => stories._tags.includes("story"))) 
             }
               break;
             case "Comments":
                 //displays only the comments
-                if (props.searchResults.length === 0){
-                    props.character(props.stories.filter(stories => stories._tags.includes("comments"))
+                if (tabResults.length !== 0 && tabResults.length === props.searchLength){
+                    props.character(tabResults.filter(stories => stories._tags.includes("comments"))
                       )
                   } else{
-                      console.log(props.searchResults)
+                      console.log("Goodbye")
                       setTabResults(props.searchResults)
                       console.log(tabResults)
                       props.character(props.searchResults.filter(stories => stories._tags.includes("comments"))
@@ -106,8 +109,8 @@ export default function TabsForm(props) {
         }
         let utz = (string) => new Date(string)
         const today = new Date().getTime()
-        console.log(calcDaysPast(props.searchResults[1].created_at_i, today))
-        console.log(props.searchResults[1].created_at_i)
+        console.log(calcDaysPast(props.searchResults[1].created_at))
+        console.log(props.searchResults[1].created_at)
         switch(event.target.value) {
             case "Alltime":
                 if (props.searchResults.length < tabResults.length || props.searchResults.length === 0) {
