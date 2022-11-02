@@ -1,10 +1,9 @@
 // import logo from './logo.svg';
-import react, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import ListPage from './components/ListPage';
-import BodyCard from './components/BodyCard';
-
+// import BodyCard from './components/BodyCard';
 
 function App() {
   const [stories, setStories] = useState([]);
@@ -27,10 +26,9 @@ function App() {
   }, []);
   // console.log(stories);
   return (
-
     <>
       <SearchBar stories={stories} setSearchResults={setSearchResults} />
-      <BodyCard data={stories}/>
+      {/* <BodyCard data={searchResults} /> */}
       <ListPage searchResults={searchResults} />
     </>
   );
