@@ -1,10 +1,13 @@
+// import BodyCard from './BodyCard';
+
 const Post = ({ story }) => {
   return (
-    <article>
-      <h2>{story.title}</h2>
-      <p>{story.url}</p>
-      <p>Post ID: {story.id}</p>
-    </article>
+    // <BodyCard data={story} />
+    <ul className='story-list'>
+      <li className='story-itm' key={story.objectID}>
+        {story.title} (<a href={story.url}>{story.url}</a>)
+      </li>
+    </ul>
   );
 };
 

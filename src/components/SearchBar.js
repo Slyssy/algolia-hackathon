@@ -1,12 +1,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import logo from '../images/search_hacker_logo.png';
+import settingsCog from '../images/settings.png';
 
 const SearchBar = (stories, setSearchResults) => {
   // console.log(stories.setSearchResults);
   const handleSubmit = (event) => event.preventDefault();
   const handleSearchChange = (event) => {
-    if (!event.target.value) return stories.setSearchResults(stories);
+    if (!event.target.value) {
+      stories.setSearchResults(stories);
+    }
 
     const resultsArray = stories.stories.filter(
       (story) => {
@@ -19,17 +23,24 @@ const SearchBar = (stories, setSearchResults) => {
   };
   return (
     <header>
+      <div className='logo-container'>
+        <img src={logo} alt='search hacker logo' className='logo' />
+      </div>
       <form className='search' onSubmit={handleSubmit}>
-        <input
-          type='text'
-          className='search__input'
-          id='search'
-          onChange={handleSearchChange}
-        />
-        <button className='search__button'>
+        <button type='submit' className='search__button'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
+        <input
+          type='search'
+          className='search__input'
+          id='search'
+          placeholder='Search stories by title, url or author'
+          onChange={handleSearchChange}
+        />
       </form>
+      <div className='setting-cog-container'>
+        <img src={settingsCog} alt='settings gear' />
+      </div>
     </header>
   );
 };
