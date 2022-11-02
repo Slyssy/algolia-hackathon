@@ -35,7 +35,7 @@ function App() {
 
      <>
      <SearchBar stories={stories} setSearchResults={setSearchResults} />
-     < TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults}/>
+     <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults}/>
      <ListPage searchResults={searchResults} setSearchResults={setSearchResults} stories= {stories}/>
      
    </>

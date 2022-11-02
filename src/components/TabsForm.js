@@ -14,45 +14,59 @@ export default function TabsForm(props) {
         setValue({
         searchCriteria: event.target.value
         })
-
+         console.log(tabResults)
         // if (event.target.value ==="All")
         switch(event.target.value) {
             case "All":
-                // displays all stories
-            //   if (props.searchResults.length !== tabResults.length && tabResults.length) {
-            // //     console.log("Search Results", props.searchResults, props.tabResults)
               
-            //   console.log("Hello")
-            //   } else{
-                props.character(tabResults)
+                  props.character(props.stories)
+
+                
+              //     console.log("No Changes")
+              //}
+                
               
             // //   props.character(props.stories)}
               break;
             case "Stories":
+              
             //     // displays only the stories
-              if (tabResults.length !== 0 && tabResults.length === props.searchLength){
+              if (tabResults.length !== 0 && tabResults.length === props.searchResults.Length){
                 console.log("Hello")
                 props.character(tabResults.filter(stories => stories._tags.includes("story")))
             
              } else{
                 console.log("Goodbye")
-                setTabResults(props.searchResults)
-                props.character(props.searchResults.filter(stories => stories._tags.includes("story"))) 
+                const resultsArray = props.stories.filter(
+                  (story) => {
+                    return story._tags.includes("story");
+                  }
+                  // ||
+                  // story.body.includes(event.targe.value)
+                );
+               props.character(resultsArray)
             }
+          
               break;
-            case "Comments":
+            case "Comments": 
                 //displays only the comments
-                if (tabResults.length !== 0 && tabResults.length === props.searchLength){
+                
+                if (tabResults.length !== 0 && tabResults.length === props.searchResults.Length){
                     props.character(tabResults.filter(stories => stories._tags.includes("comments"))
                       )
                   } else{
                       console.log("Goodbye")
-                      setTabResults(props.searchResults)
-                      console.log(tabResults)
-                      props.character(props.searchResults.filter(stories => stories._tags.includes("comments"))
-                      )
+                      const resultsArray = props.stories.filter(
+                        (story) => {
+                          return story._tags.includes("comments");
+                        }
+                        // ||
+                        // story.body.includes(event.targe.value)
+                      );
+                     props.character(resultsArray)
                   } 
               break;
+                
             default:
               console.log("There is an error")
           }
@@ -63,38 +77,21 @@ export default function TabsForm(props) {
         })
         switch(event.target.value) {
             case "Popularity":
-                console.log("Hello")
-                let sortedArrayByPop = props.searchResults.sort((a, b) => {
-                    const nameA = a.points; // ignore upper and lowercase
-                    const nameB = b.points; // ignore upper and lowercase
-                    if (nameA > nameB) {
-                      return -1;
-                    }
-                    if (nameA < nameB) {
-                      return 1;
-                    }
-                    return 0;
-                  });
-              console.log(sortedArrayByPop)    
-              props.character(sortedArrayByPop)
-              console.log(props.searchResults)
+              
+                console.log("Initial",props.searchResults)
+                let sortedArraybyPop =props.searchResults.slice().sort((a, b) => {
+
+                  return b.points - a.points});
+               props.character(sortedArraybyPop)
+              console.log("Final", props.searchResults)
               break;
+                
             case "Date":
-                console.log(props.searchResults)
-                let sortedArrayByDate = props.searchResults.sort((a, b) => {
-                    const nameA = a.created_at; // ignore upper and lowercase
-                    const nameB = b.created_at; // ignore upper and lowercase
-                    if (nameA > nameB) {
-                      return -1;
-                    }
-                    if (nameA < nameB) {
-                      return 1;
-                    }
-                    return 0;
-                  });
-                  console.log(sortedArrayByDate)    
-              props.character(sortedArrayByDate)
-              console.log(props.searchResults)
+                console.log("Initial", props.searchResults)
+                let sortedArraybyDate = props.searchResults.slice().sort((a, b) => {
+                    return b.created_at_i - a.created_at_i}) 
+              props.character(sortedArraybyDate)  
+              console.log("Should be", props.searchResults)
               break;
             default:
               // code block
@@ -113,6 +110,7 @@ export default function TabsForm(props) {
         console.log(props.searchResults[1].created_at)
         switch(event.target.value) {
             case "Alltime":
+              {
                 if (props.searchResults.length < tabResults.length || props.searchResults.length === 0) {
                     console.log("Search Results", props.searchResults, props.tabResults)
                     props.character(tabResults)
@@ -120,7 +118,9 @@ export default function TabsForm(props) {
                   console.log("Search Results", props.searchResults, props.tabResults)
                   props.character(props.stories)}
               break;
+                  }
             case "Last24h":
+              {
                 if (props.searchResults.length === 0){
                     props.character(props.stories.filter(story => calcDaysPast(story.created_at_i, today) < 1 ))
                   } else{
@@ -130,7 +130,9 @@ export default function TabsForm(props) {
                       console.log(props.searchResults)
                   }
               break;
+                }
             case "PastWeek":
+              {
                 if (props.searchResults.length === 0){
                     props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000))
                   } else{
@@ -139,7 +141,9 @@ export default function TabsForm(props) {
                       props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000)) 
                   }
               break;
+                }
             case "PastMonth":
+              {
                 if (props.searchResults.length === 0){
                     props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 2592000000))
                   } else{
@@ -148,7 +152,9 @@ export default function TabsForm(props) {
                       props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 2592000000)) 
                   }
               break;
+                }
             case "PastYear":
+              {
                 if (props.searchResults.length === 0){
                     props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 31536000000))
                   } else{
@@ -157,7 +163,9 @@ export default function TabsForm(props) {
                       props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 31536000000)) 
                   }
               break;
+                }
             default:
+              console.log("There was an error")
               // code block
           }
         
