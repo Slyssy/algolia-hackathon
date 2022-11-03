@@ -8,6 +8,7 @@ import TabsForm from "./components/TabsForm"
 function App() {
   const [stories, setStories] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [inputValue, setInputValue] = useState("")
   useState(() => {});
 
   useEffect(() => {
@@ -34,8 +35,8 @@ function App() {
   return (
 
      <>
-     <SearchBar stories={stories} setSearchResults={setSearchResults} />
-     <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults}/>
+     <SearchBar stories={stories} setSearchResults={setSearchResults} setInputValue={setInputValue}/>
+     <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults} inputValue={inputValue}/>
      <ListPage searchResults={searchResults} setSearchResults={setSearchResults} stories= {stories}/>
      
    </>

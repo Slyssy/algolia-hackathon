@@ -3,11 +3,11 @@ import React, {useState, useEffect} from "react"
 
 export default function TabsForm(props) {  
     const [value, setValue] = useState([{
-        searchCriteria: "All",
-        forCriteria: "Popularity",
-        byCriteria: "AllTime"
+        searchCriteria: "",
+        forCriteria: "",
+        byCriteria: ""
       }])
-    const [tabResults, setTabResults] = useState([])
+    const [tabResults, setTabResults] = useState([props.searchResults])
 
 
     const handleSearchCriteria = (event) => {
@@ -15,56 +15,59 @@ export default function TabsForm(props) {
         searchCriteria: event.target.value
         })
          console.log(tabResults)
+         console.log(props.inputValue)
         // if (event.target.value ==="All")
         switch(event.target.value) {
             case "All":
-              
+                  if(!props.inputValue){
+                  console.log("Hello")
                   props.character(props.stories)
-
-                
-              //     console.log("No Changes")
-              //}
-                
-              
-            // //   props.character(props.stories)}
+                  } else {
+                  console.log("Goodbye")
+                  props.character(tabResults)
+                  }
               break;
             case "Stories":
               
-            //     // displays only the stories
-              if (tabResults.length !== 0 && tabResults.length === props.searchResults.Length){
-                console.log("Hello")
-                props.character(tabResults.filter(stories => stories._tags.includes("story")))
-            
-             } else{
+            if(!props.inputValue){
+              console.log("Hello")
+              const storiesArray1 = props.stories.filter(
+                (story) => {
+                  return story._tags.includes("story");
+                }
+                // ||
+                // story.body.includes(event.targe.value)
+              );
+             props.character(storiesArray1)
+            } else {
                 console.log("Goodbye")
-                const resultsArray = props.stories.filter(
+                const storiesArray2 = tabResults.filter(
                   (story) => {
                     return story._tags.includes("story");
                   }
                   // ||
                   // story.body.includes(event.targe.value)
                 );
-               props.character(resultsArray)
-            }
+               props.character(storiesArray2)
+                }
           
               break;
             case "Comments": 
                 //displays only the comments
-                
-                if (tabResults.length !== 0 && tabResults.length === props.searchResults.Length){
-                    props.character(tabResults.filter(stories => stories._tags.includes("comments"))
-                      )
+                  if(!props.inputValue){
+                    const CommentsArray1 = props.stories.filter(
+                      (story) => {
+                        return story._tags.includes("comments");
+                      });
+                   props.character(CommentsArray1)
                   } else{
                       console.log("Goodbye")
-                      const resultsArray = props.stories.filter(
+                      const CommentsArray2 = tabResults.filter(
                         (story) => {
                           return story._tags.includes("comments");
-                        }
-                        // ||
-                        // story.body.includes(event.targe.value)
-                      );
-                     props.character(resultsArray)
-                  } 
+                        });
+                     props.character(CommentsArray2)
+                      }
               break;
                 
             default:
@@ -172,11 +175,8 @@ export default function TabsForm(props) {
      }
 
       useEffect(() => {
-        console.log("UPDATED value", value)
-        // if(value.seachCriteria !== "All" && value.forCriteria !== "Stories" && byCriteria !== value.handleByCriteria !== "AllTime"){
-        //     console.log("cool")
-        // }
-          }, [value, props.searchResults])
+        setTabResults(props.searchResults)
+          }, [props.inputValue])
        
           
 
