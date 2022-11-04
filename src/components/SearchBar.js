@@ -27,7 +27,7 @@ const SearchBar = (stories, setSearchResults) => {
         <img src={logo} alt='search hacker logo' className='logo' />
       </div>
       <form className='search' onSubmit={handleSubmit}>
-        <button type='submit' className='search__button'>
+        <button type='submit'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
         </button>
         <input
