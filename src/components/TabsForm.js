@@ -2,19 +2,17 @@ import React, {useState, useEffect} from "react"
  
 
 export default function TabsForm(props) {  
-   // eslint-disable-next-line
-    const [value, setValue] = useState([{
-        searchCriteria: "",
-        forCriteria: "",
-        byCriteria: ""
-      }])
+    const [searchCriteria, setSearchCriteria] =useState("All")
+    // eslint-disable-next-line  
+    const [forCriteria, setForCriteria] =useState("Popularity")  
+    // eslint-disable-next-line
+    const [byCriteria, setByCriteria] =useState("Alltime")  
     const [tabResults, setTabResults] = useState([props.searchResults])
+    const [searchCriteriaResults, setSearchCriteriaResults] = useState([])
 
 
     const handleSearchCriteria = (event) => {
-        setValue({
-        searchCriteria: event.target.value
-        })
+        setSearchCriteria(event.target.value)
          console.log(tabResults)
          console.log(props.inputValue)
         // if (event.target.value ==="All")
@@ -76,9 +74,7 @@ export default function TabsForm(props) {
           }
     }
     const handleByCriteria = (event) => {
-        setValue({
-        byCriteria: event.target.value
-        })
+        setByCriteria( event.target.value)
         switch(event.target.value) {
             case "Popularity":
               
@@ -102,87 +98,106 @@ export default function TabsForm(props) {
           }
      }
     const handleForCriteria = (event) => {
-        setValue({
-        byCriteria: event.target.value
-        })
+        setForCriteria(event.target.value)
         const calcDaysPast = function(date1, date2){
            return Math.abs(date2 - date1) 
         }
         let utz = (string) => new Date(string).getTime()
         const today = new Date().getTime()
-        console.log(event)
         switch(event.target.value) {
             case "Alltime":
               {
-                if(!props.inputValue){
+                if(!props.inputValue && !searchCriteriaResults.length){
                   console.log("Hello")
                   props.character(props.stories)
-                  } else {
+                  } else if(props.inputValue && !searchCriteriaResults.length){
                   console.log("Goodbye")
                   props.character(tabResults)
+                  } else {
+                  props.character(searchCriteriaResults)
                   }
               break;
                   }
             case "Last24h":
               {
-                if (!props.inputValue){
+                if (!props.inputValue && !searchCriteriaResults.length){
                   const last24HrArray1 = props.stories.filter(
                     (story) => {
                       return calcDaysPast(utz(story.created_at), today) < 86400000 });
                     props.character(last24HrArray1) 
                     }
-                  else{
+                  else if (props.inputValue && !searchCriteriaResults.length){
                       const last24HrArray2 = tabResults.filter(
                         (story) => {
                           return calcDaysPast(utz(story.created_at), today) < 86400000 });
-
                           props.character(last24HrArray2) 
-                        }
+                  } else {
+                    const  last24HrArray3 = searchCriteriaResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 604800000 });
+                      props.character(last24HrArray3)
+                  }
               break;
                 }
             case "PastWeek":
               {
-                if (!props.inputValue){
+                if (!props.inputValue && !searchCriteriaResults.length){
                   const pastWeekArray1 = props.stories.filter(
                     (story) => {
                       return calcDaysPast(utz(story.created_at), today) < 604800000 });
                     props.character(pastWeekArray1)
                     // props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000))
-                  } else{
+                  } else if (props.inputValue && !searchCriteriaResults.length){
                     const pastWeekArray2 = tabResults.filter(
                       (story) => {
                         return calcDaysPast(utz(story.created_at), today) < 604800000 });
                       props.character(pastWeekArray2)
+                  } else {
+                    const pastWeekArray3 = searchCriteriaResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 604800000 });
+                      props.character(pastWeekArray3)
                   }
               break;
                 }
             case "PastMonth":
               {
-                if (!props.inputValue){
+                if (!props.inputValue && !searchCriteriaResults.length){
                   const pastMonthArray1 = props.stories.filter(
                     (story) => {
                       return calcDaysPast(utz(story.created_at), today) < 2592000000 });
                     props.character(pastMonthArray1)
-                  } else{
+                  } else if (props.inputValue && !searchCriteriaResults.length){
                     const pastMonthArray2 = tabResults.filter(
                       (story) => {
                         return calcDaysPast(utz(story.created_at), today) < 2592000000 });
                       props.character(pastMonthArray2)
+                  } else {
+                    const pastMonthArray3 = searchCriteriaResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 2592000000 });
+                      props.character(pastMonthArray3)
                   }
               break;
                 }
             case "PastYear":
               {
-                if (!props.inputValue){
+                if (!props.inputValue && !searchCriteriaResults.length){
                   const pastYearArray1 = props.stories.filter(
                     (story) => {
                       return calcDaysPast(utz(story.created_at), today) < 31536000000 });
                     props.character(pastYearArray1)
-                  } else{
+                  } else if (props.inputValue && !searchCriteriaResults.length){
+                    console.log("BAD")
                     const pastYearArray2 = tabResults.filter(
                       (story) => {
                         return calcDaysPast(utz(story.created_at), today) < 31536000000 });
                       props.character(pastYearArray2)
+                  } else {
+                    const pastYearArray3 = searchCriteriaResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 31536000000 });
+                      props.character(pastYearArray3)
                   }
               break;
                 }
@@ -198,6 +213,13 @@ export default function TabsForm(props) {
           }, 
           // eslint-disable-next-line
           [props.inputValue])
+      useEffect(() => {
+        setSearchCriteriaResults(props.searchResults)
+        console.log("Hello Things have changed")
+        console.log(searchCriteria)
+          }, 
+          // eslint-disable-next-line
+          [searchCriteria])
        
           
 
