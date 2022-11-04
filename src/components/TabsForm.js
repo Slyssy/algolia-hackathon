@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react"
  
 
 export default function TabsForm(props) {  
+   // eslint-disable-next-line
     const [value, setValue] = useState([{
         searchCriteria: "",
         forCriteria: "",
@@ -97,7 +98,7 @@ export default function TabsForm(props) {
               console.log("Should be", props.searchResults)
               break;
             default:
-              // code block
+              console.log("There was an error")
           }
      }
     const handleForCriteria = (event) => {
@@ -105,65 +106,87 @@ export default function TabsForm(props) {
         byCriteria: event.target.value
         })
         const calcDaysPast = function(date1, date2){
-           return date1 - date2 
+           return Math.abs(date2 - date1) 
         }
-        let utz = (string) => new Date(string)
+        let utz = (string) => new Date(string).getTime()
         const today = new Date().getTime()
-        console.log(calcDaysPast(props.searchResults[1].created_at))
-        console.log(props.searchResults[1].created_at)
+        let date = utz("2022-11-03T12:07:32.000Z")
+        let date2 = utz("2022-11-10T12:07:32.000Z")
+        console.log("Date 1", date)
+        console.log("Date 2", date2)
+        console.log("Calculation", calcDaysPast(date,date2))
         switch(event.target.value) {
             case "Alltime":
               {
-                if (props.searchResults.length < tabResults.length || props.searchResults.length === 0) {
-                    console.log("Search Results", props.searchResults, props.tabResults)
-                    props.character(tabResults)
-                  } else{
-                  console.log("Search Results", props.searchResults, props.tabResults)
-                  props.character(props.stories)}
+                if(!props.inputValue){
+                  console.log("Hello")
+                  props.character(props.stories)
+                  } else {
+                  console.log("Goodbye")
+                  props.character(tabResults)
+                  }
               break;
                   }
             case "Last24h":
               {
-                if (props.searchResults.length === 0){
-                    props.character(props.stories.filter(story => calcDaysPast(story.created_at_i, today) < 1 ))
-                  } else{
-                      setTabResults(props.searchResults)
-                      console.log("Tab Results", tabResults)
-                      props.character(props.searchResults.filter(story => calcDaysPast(story.created_at_i, today) < 1)) 
-                      console.log(props.searchResults)
-                  }
+                if (!props.inputValue){
+                  const last24HrArray1 = props.stories.filter(
+                    (story) => {
+                      return calcDaysPast(utz(story.created_at), today) < 86400000 });
+                    props.character(last24HrArray1) 
+                    }
+                  else{
+                      const last24HrArray2 = tabResults.filter(
+                        (story) => {
+                          return calcDaysPast(utz(story.created_at), today) < 86400000 });
+
+                          props.character(last24HrArray2) 
+                        }
               break;
                 }
             case "PastWeek":
               {
-                if (props.searchResults.length === 0){
-                    props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000))
+                if (!props.inputValue){
+                  const pastWeekArray1 = props.stories.filter(
+                    (story) => {
+                      return calcDaysPast(utz(story.created_at), today) < 604800000 });
+                    props.character(pastWeekArray1)
+                    // props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000))
                   } else{
-                      setTabResults(props.searchResults)
-                      console.log("Tab Results", tabResults)
-                      props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 604800000)) 
+                    const pastWeekArray2 = tabResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 604800000 });
+                      props.character(pastWeekArray2)
                   }
               break;
                 }
             case "PastMonth":
               {
-                if (props.searchResults.length === 0){
-                    props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 2592000000))
+                if (!props.inputValue){
+                  const pastMonthArray1 = props.stories.filter(
+                    (story) => {
+                      return calcDaysPast(utz(story.created_at), today) < 2592000000 });
+                    props.character(pastMonthArray1)
                   } else{
-                      setTabResults(props.searchResults)
-                      console.log("Tab Results", tabResults)
-                      props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 2592000000)) 
+                    const pastMonthArray2 = tabResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 2592000000 });
+                      props.character(pastMonthArray2)
                   }
               break;
                 }
             case "PastYear":
               {
-                if (props.searchResults.length === 0){
-                    props.character(props.stories.filter(stories => calcDaysPast(utz(stories.created_at), today) < 31536000000))
+                if (!props.inputValue){
+                  const pastYearArray1 = props.stories.filter(
+                    (story) => {
+                      return calcDaysPast(utz(story.created_at), today) < 31536000000 });
+                    props.character(pastYearArray1)
                   } else{
-                      setTabResults(props.searchResults)
-                      console.log("Tab Results", tabResults)
-                      props.character(props.searchResults.filter(stories => calcDaysPast(utz(stories.created_at), today) < 31536000000)) 
+                    const pastYearArray2 = tabResults.filter(
+                      (story) => {
+                        return calcDaysPast(utz(story.created_at), today) < 31536000000 });
+                      props.character(pastYearArray2)
                   }
               break;
                 }
@@ -176,7 +199,9 @@ export default function TabsForm(props) {
 
       useEffect(() => {
         setTabResults(props.searchResults)
-          }, [props.inputValue])
+          }, 
+          // eslint-disable-next-line
+          [props.inputValue])
        
           
 
