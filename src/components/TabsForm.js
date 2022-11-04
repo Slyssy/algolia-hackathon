@@ -13,15 +13,14 @@ export default function TabsForm(props) {
 
     const handleSearchCriteria = (event) => {
         setSearchCriteria(event.target.value)
-         console.log(tabResults)
-         console.log(props.inputValue)
-        // if (event.target.value ==="All")
         switch(event.target.value) {
             case "All":
+              // if nothing has been put into the search bar for the first time
                   if(!props.inputValue){
                   console.log("Hello")
                   props.character(props.stories)
-                  } else {
+                  } // now filter from the search bar logic
+                  else {
                   console.log("Goodbye")
                   props.character(tabResults)
                   }
@@ -107,13 +106,16 @@ export default function TabsForm(props) {
         switch(event.target.value) {
             case "Alltime":
               {
+                // if nothing has been put into the search bar but you haven't filtered it by all, stories, comments
                 if(!props.inputValue && !searchCriteriaResults.length){
                   console.log("Hello")
                   props.character(props.stories)
-                  } else if(props.inputValue && !searchCriteriaResults.length){
+                  } // if something has been put into the search bar but you haven't filtered it by all, stories, comments
+                  else if(props.inputValue && !searchCriteriaResults.length){
                   console.log("Goodbye")
                   props.character(tabResults)
-                  } else {
+                  } //if something has been put into the search bar and you have filtered it by all, stories, or comments
+                  else {
                   props.character(searchCriteriaResults)
                   }
               break;
