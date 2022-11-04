@@ -1,8 +1,9 @@
 // import logo from './logo.svg';
-import react, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import SearchBar from './SearchBar';
-import ListPage from './ListPage';
+import SearchBar from './components/SearchBar';
+import ListPage from './components/ListPage';
+// import BodyCard from './components/BodyCard';
 import TabsForm from "./components/TabsForm"
 
 function App() {
@@ -36,18 +37,12 @@ function App() {
 
      <>
      <SearchBar stories={stories} setSearchResults={setSearchResults} setInputValue={setInputValue}/>
+     {/* <BodyCard data={searchResults} /> */}
      <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults} inputValue={inputValue}/>
-     <ListPage searchResults={searchResults} setSearchResults={setSearchResults} stories= {stories}/>
+     <ListPage searchResults={searchResults}/>
      
    </>
   );
-  //
-
-  // return (
-  //   <div className='App'>
-  //     <h1>hello classmates! </h1>
-  //   </div>
-  // );
 }
 
 export default App;
