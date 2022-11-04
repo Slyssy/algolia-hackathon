@@ -32,13 +32,6 @@ function App() {
       <ListPage searchResults={searchResults} />
     </>
   );
-  //
-
-  // return (
-  //   <div className='App'>
-  //     <h1>hello classmates! </h1>
-  //   </div>
-  // );
 }
 
 export default App;

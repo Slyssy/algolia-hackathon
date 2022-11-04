@@ -1,3 +1,6 @@
+#root {
+  background-color: #f6f6ef;
+}
 .story-list {
   list-style: none;
 }
@@ -58,4 +61,10 @@ button[type='submit']:hover {
 
 li > a {
   color: #9f9f9dff;
+}
+
+.pagination-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

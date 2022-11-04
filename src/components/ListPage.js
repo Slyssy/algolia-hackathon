@@ -1,5 +1,6 @@
 import React from 'react';
 import Post from './Post';
+import pagination from '../images/pagination.png';
 
 const ListPage = ({ searchResults }) => {
   console.log(searchResults);
@@ -16,7 +17,14 @@ const ListPage = ({ searchResults }) => {
     </article>
   );
 
-  return <main>{content}</main>;
+  return (
+    <main>
+      {content}
+      <div className='pagination-container'>
+        <img src={pagination} alt='pagination' className='pagination' />
+      </div>
+    </main>
+  );
 };
 
 export default ListPage;
