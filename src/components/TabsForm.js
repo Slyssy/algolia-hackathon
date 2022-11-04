@@ -110,11 +110,7 @@ export default function TabsForm(props) {
         }
         let utz = (string) => new Date(string).getTime()
         const today = new Date().getTime()
-        let date = utz("2022-11-03T12:07:32.000Z")
-        let date2 = utz("2022-11-10T12:07:32.000Z")
-        console.log("Date 1", date)
-        console.log("Date 2", date2)
-        console.log("Calculation", calcDaysPast(date,date2))
+        console.log(event)
         switch(event.target.value) {
             case "Alltime":
               {
@@ -225,8 +221,6 @@ export default function TabsForm(props) {
                 <option value="PastWeek">Past Week</option>
                 <option value="PastMonth">Past Month</option>
                 <option value="PastYear">Past Year</option>
-                {/* figure this out later */}
-                {/* <option value="CustomRange">Custom Range</option> */}
             </select> 
         </form>
     )
