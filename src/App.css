@@ -1,14 +1,14 @@
 #root {
   background-color: #f6f6ef;
 }
-.story-list {
-  list-style: none;
-  padding: 0 1em;
+
+.page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-.story-itm {
-  overflow-wrap: break-word;
-}
+/* ! Header Bar Styling ----------------------------------------------------- */
 header {
   display: flex;
   align-items: center;
@@ -18,37 +18,10 @@ header {
   height: 4em;
 }
 
-.page-container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.mobile {
-  display: none;
-}
-
-.Tabs {
-  width: 95%;
-  background-color: #f6f5f0;
-  text-align: left;
-  margin: 9px 9px 0 0;
-  border: none;
-  color: #665c54;
-  gap: 5px;
-  justify-content: flex-end;
-}
-
-.searchCriteria {
-  width: 10%;
-}
-
 form {
   color: #555;
   display: flex;
-  /* padding: 2px; */
   border: 1px solid currentColor;
-  /* border-radius: 5px; */
   width: 70%;
   height: 2em;
 }
@@ -84,22 +57,23 @@ button[type='submit']:hover {
   opacity: 1;
 }
 
-.bold-text {
-  font-weight: 500;
-}
-li > a {
-  color: #9f9f9dff;
-}
+/* !Dropdown Styling -------------------------------------------------------- */
 
-.gray-text {
-  color: #9f9f9dff;
-  font-size: 14px;
-}
-
-.dark-gray-text {
+.Tabs {
+  width: 95%;
+  background-color: #f6f5f0;
+  text-align: left;
+  margin: 9px 9px 0 0;
+  border: none;
   color: #665c54;
-  font-size: 14px;
+  gap: 5px;
+  justify-content: flex-end;
 }
+
+.searchCriteria {
+  width: 10%;
+}
+
 select {
   color: #665c54;
   background-color: #f6f5f0;
@@ -131,13 +105,45 @@ label {
   width: fit-content;
 }
 
+.mobile {
+  display: none;
+}
+
+/* ! Stories Section Styling (Main) ----------------------------------------- */
+.story-list {
+  list-style: none;
+  padding: 0 1em;
+}
+
+.story-itm {
+  overflow-wrap: break-word;
+}
+
+.bold-text {
+  font-weight: 500;
+}
+
+li > a {
+  color: #9f9f9dff;
+}
+
+.gray-text {
+  color: #9f9f9dff;
+  font-size: 14px;
+}
+
+.dark-gray-text {
+  color: #665c54;
+  font-size: 14px;
+}
+
 .pagination-container {
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-/* Large devices (laptops/desktops, 992px and up) */
+/* !Large devices (laptops/desktops, 992px and up) ---------------------------*/
 @media only screen and (min-width: 800px) {
   .Tabs {
     justify-content: flex-start;
