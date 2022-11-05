@@ -5,6 +5,7 @@ import SearchBar from './components/SearchBar';
 import ListPage from './components/ListPage';
 // import BodyCard from './components/BodyCard';
 import TabsForm from "./components/TabsForm"
+import Details from "./components/Details";
 
 function App() {
   const [stories, setStories] = useState([]);
@@ -13,7 +14,7 @@ function App() {
   useState(() => {});
 
   useEffect(() => {
-    fetch('https://hn.algolia.com/api/v1/search?tags=front_page')
+    fetch('https://hn.algolia.com/api/v1/search?tags=front_page') // Added - "?&hitsPerPage=50"
       .then((res) => res.json())
       .then((data) => {
         const newsStories = data.hits;
@@ -40,6 +41,7 @@ function App() {
      {/* <BodyCard data={searchResults} /> */}
      <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults} inputValue={inputValue}/>
      <ListPage searchResults={searchResults}/>
+    
      
    </>
   );
