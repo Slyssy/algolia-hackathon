@@ -1,16 +1,19 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import logo from '../images/search_hacker_logo.png';
-import settingsCog from '../images/settings.png';
+import logoLarge from '../images/search_hacker_logo.png';
+import logoSmall from '../images/logo_sm.png';
+import settingsLarge from '../images/settings_lg.png';
+import settingsSmall from '../images/settings_sm.png';
 
 const SearchBar = (stories, setSearchResults) => {
   // console.log(stories.setSearchResults);
   const handleSubmit = (event) => event.preventDefault();
   const handleSearchChange = (event) => {
-    stories.setInputValue(event.target.value)
+    stories.setInputValue(event.target.value);
     if (!event.target.value) {
-      stories.setSearchResults(stories)}
+      stories.setSearchResults(stories);
+    }
     const resultsArray = stories.stories.filter(
       (story) => {
         return story.title.includes(event.target.value);
@@ -22,9 +25,10 @@ const SearchBar = (stories, setSearchResults) => {
   };
   return (
     <header>
-      <div className='logo-container'>
-        <img src={logo} alt='search hacker logo' className='logo' />
-      </div>
+      <picture className='logo-container'>
+        <source media='(min-width: 800px)' srcset={logoLarge}></source>
+        <img src={logoSmall} alt='search hacker logo' className='logo' />
+      </picture>
       <form className='search' onSubmit={handleSubmit}>
         <button type='submit'>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
@@ -37,9 +41,10 @@ const SearchBar = (stories, setSearchResults) => {
           onChange={handleSearchChange}
         />
       </form>
-      <div className='setting-cog-container'>
-        <img src={settingsCog} alt='settings gear' />
-      </div>
+      <picture className='setting-cog-container'>
+        <source media='(min-width: 800px)' srcset={settingsLarge}></source>
+        <img src={settingsSmall} alt='search hacker logo' className='logo' />
+      </picture>
     </header>
   );
 };

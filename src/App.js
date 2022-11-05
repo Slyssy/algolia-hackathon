@@ -1,16 +1,13 @@
-// import logo from './logo.svg';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import SearchBar from './components/SearchBar';
 import ListPage from './components/ListPage';
-// import BodyCard from './components/BodyCard';
-import TabsForm from "./components/TabsForm"
-import Details from "./components/Details";
+import TabsForm from './components/TabsForm';
 
 function App() {
   const [stories, setStories] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [inputValue, setInputValue] = useState("")
+  const [inputValue, setInputValue] = useState('');
   useState(() => {});
 
   useEffect(() => {
@@ -29,21 +26,23 @@ function App() {
   }, []);
   // console.log(stories);
 
-
-//
-
-
+  //
 
   return (
-
-     <>
-     <SearchBar stories={stories} setSearchResults={setSearchResults} setInputValue={setInputValue}/>
-     {/* <BodyCard data={searchResults} /> */}
-     <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults} inputValue={inputValue}/>
-     <ListPage searchResults={searchResults}/>
-    
-     
-   </>
+    <div className='page-container'>
+      <SearchBar
+        stories={stories}
+        setSearchResults={setSearchResults}
+        setInputValue={setInputValue}
+      />
+      <TabsForm
+        stories={stories}
+        searchResults={searchResults}
+        character={setSearchResults}
+        inputValue={inputValue}
+      />
+      <ListPage searchResults={searchResults} />
+    </div>
   );
 }
 
