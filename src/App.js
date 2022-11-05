@@ -4,10 +4,12 @@ import './App.css';
 import SearchBar from './components/SearchBar';
 import ListPage from './components/ListPage';
 // import BodyCard from './components/BodyCard';
+import TabsForm from "./components/TabsForm"
 
 function App() {
   const [stories, setStories] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [inputValue, setInputValue] = useState("")
   useState(() => {});
 
   useEffect(() => {
@@ -25,12 +27,21 @@ function App() {
     // The empty array means "to run me once and only once"
   }, []);
   // console.log(stories);
+
+
+//
+
+
+
   return (
-    <>
-      <SearchBar stories={stories} setSearchResults={setSearchResults} />
-      {/* <BodyCard data={searchResults} /> */}
-      <ListPage searchResults={searchResults} />
-    </>
+
+     <>
+     <SearchBar stories={stories} setSearchResults={setSearchResults} setInputValue={setInputValue}/>
+     {/* <BodyCard data={searchResults} /> */}
+     <TabsForm stories={stories} searchResults = {searchResults} character = {setSearchResults} inputValue={inputValue}/>
+     <ListPage searchResults={searchResults}/>
+     
+   </>
   );
 }
 
