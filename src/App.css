@@ -70,21 +70,26 @@ li > a {
 }
 
 select {
-  color: #5a5f6d;
+  color: #665c54;
   background-color: #f6f5f0;
   border-color: #cecdc8;
   width: 18vh;
   height: 20px;
-  font-size: 18px;
+  font-size: 17px;
+  padding: 1px 0;
 }
 
-form {
+.Tabs {
   background-color: #f6f5f0;
   text-align: left;
-  margin-left: 10px;
+  margin: 9px;
+  border: none;
+  color: #665c54;
 }
 label {
-  margin: 5px;
+  color: black;
+  margin-left: 7px;
+  margin-right: 7px;
 }
 
 .searchCriteria {
