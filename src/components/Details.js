@@ -8,8 +8,8 @@ function currentTime(props) {
   //     console.log(item.author)
 
   return (
-    <ul>
-      <li>
+    <ul className='details-list'>
+      <li className='details-list-item'>
         <span className='dark-gray-text'>
           {props.story.points} | {props.story.author} |{' '}
           {moment(props.story.created_at, 'YYYYMMDD').fromNow()} |{' '}

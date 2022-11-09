@@ -123,6 +123,13 @@ label {
   font-weight: 500;
 }
 
+.details-list {
+  margin: 0.25em -2.4em;
+}
+
+.details-list-item {
+  list-style: none;
+}
 li > a {
   color: #9f9f9dff;
 }
