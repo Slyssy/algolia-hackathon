@@ -26,7 +26,7 @@ const SearchBar = (stories, setSearchResults) => {
   return (
     <header>
       <picture className='logo-container'>
-        <source media='(min-width: 800px)' srcset={logoLarge}></source>
+        <source media='(min-width: 800px)' srcSet={logoLarge}></source>
         <img src={logoSmall} alt='search hacker logo' className='logo' />
       </picture>
       <form className='search' onSubmit={handleSubmit}>
@@ -42,7 +42,7 @@ const SearchBar = (stories, setSearchResults) => {
         />
       </form>
       <picture className='setting-cog-container'>
-        <source media='(min-width: 800px)' srcset={settingsLarge}></source>
+        <source media='(min-width: 800px)' srcSet={settingsLarge}></source>
         <img src={settingsSmall} alt='search hacker logo' className='logo' />
       </picture>
     </header>

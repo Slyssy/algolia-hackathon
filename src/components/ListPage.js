@@ -3,7 +3,7 @@ import Post from './Post';
 import pagination from '../images/pagination.png';
 
 const ListPage = ({ searchResults }) => {
-  console.log(searchResults);
+  // console.log(searchResults);
   const results = searchResults.map((story) => {
     // console.log(story);
     return <Post key={story.objectID} story={story} />;

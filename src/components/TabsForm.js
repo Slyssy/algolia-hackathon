@@ -208,8 +208,8 @@ export default function TabsForm(props) {
   useEffect(
     () => {
       setSearchCriteriaResults(props.searchResults);
-      console.log('Hello Things have changed');
-      console.log(searchCriteria);
+      // console.log('Hello Things have changed');
+      // console.log(searchCriteria);
     },
     // eslint-disable-next-line
     [searchCriteria]
